@@ -5,15 +5,12 @@ import Image from 'next/image';
 import { classNames } from '@/utils/classNames';
 import { formatDate } from '@/utils/formatDate';
 import { IPostData } from '@/interfaces/postsInterfaces';
-import { getStrapiBaseMediaUrl } from '@/utils/getStrapiBaseUrl';
 
 interface IPostItem {
 	postData: IPostData;
 }
 
 const PostItem: FC<IPostItem> = ({ postData }) => {
-	const STRAPI_BASE_MEDIA_URL = getStrapiBaseMediaUrl();
-
 	return (
 		<Link
 			href={`/posts/${postData.slug}`}
@@ -28,7 +25,7 @@ const PostItem: FC<IPostItem> = ({ postData }) => {
 				<Image
 					priority
 					alt={postData.image.alternativeText || 'post image'}
-					src={`${STRAPI_BASE_MEDIA_URL}${postData.image.formats.small.url}`}
+					src={postData.image.formats.small.url}
 					width={postData.image.formats.small.width}
 					height={postData.image.formats.small.height}
 					className={classNames(

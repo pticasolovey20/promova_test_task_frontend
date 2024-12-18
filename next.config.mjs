@@ -2,19 +2,7 @@
 
 const nextConfig = {
 	images: {
-		remotePatterns: [
-			{
-				protocol: 'http',
-				hostname: 'localhost',
-				port: '1337',
-				pathname: '/uploads/**/*',
-			},
-
-			{
-				protocol: 'https',
-				hostname: 'https://thoughtful-diamond-ba6d70667c.media.strapiapp.com',
-			},
-		],
+		domains: ['localhost', 'thoughtful-diamond-ba6d70667c.media.strapiapp.com'],
 	},
 };
 

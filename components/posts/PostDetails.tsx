@@ -2,7 +2,6 @@ import { FC, Fragment } from 'react';
 
 import { classNames } from '@/utils/classNames';
 import { IPostData } from '@/interfaces/postsInterfaces';
-import { getStrapiBaseMediaUrl } from '@/utils/getStrapiBaseUrl';
 
 import Link from 'next/link';
 import Image from 'next/image';
@@ -14,8 +13,6 @@ interface IPostDetails {
 }
 
 const PostDetails: FC<IPostDetails> = ({ postData }) => {
-	const STRAPI_BASE_MEDIA_URL = getStrapiBaseMediaUrl();
-
 	return (
 		<Fragment>
 			<div className='flex flex-col relative shadow-gray-500 shadow-lg bg-gray-300 overflow-hidden'>
@@ -25,7 +22,7 @@ const PostDetails: FC<IPostDetails> = ({ postData }) => {
 					<Image
 						priority
 						alt={postData.image.alternativeText || 'post details image'}
-						src={`${STRAPI_BASE_MEDIA_URL}${postData.image.formats.medium.url}`}
+						src={postData.image.formats.medium.url}
 						width={postData.image.formats.medium.width}
 						height={postData.image.formats.medium.height}
 						className='absolute inset-0 w-full h-full object-cover overflow-hidden'
