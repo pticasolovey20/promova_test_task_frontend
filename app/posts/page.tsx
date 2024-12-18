@@ -12,6 +12,8 @@ const getAllPosts = async (queryString: string, currentPage: number) => {
 	const PAGE_SIZE = process.env.PAGE_SIZE;
 
 	const query = qs.stringify({
+		sort: ['date'],
+
 		populate: {
 			image: {
 				populate: true,
