@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { getStrapiBaseUrl } from '@/utils/getStrapiBaseUrl';
+import { getStrapiBaseMediaUrl } from '@/utils/getStrapiBaseUrl';
 import { IPostBodyContent } from '@/interfaces/postsInterfaces';
 
 import Image from 'next/image';
@@ -10,14 +10,14 @@ interface IContentRender {
 }
 
 const CustomImage = ({ element, index }: { element: IPostBodyContent; index: number }) => {
-	const STRAPI_BASE_URL = getStrapiBaseUrl();
+	const STRAPI_BASE_MEDIA_URL = getStrapiBaseMediaUrl();
 
 	return (
 		<div className='overflow-hidden'>
 			<Image
 				priority
 				alt={element.file[index]?.alternativeText || 'post image'}
-				src={`${STRAPI_BASE_URL}${element.file[index]?.formats.medium.url}`}
+				src={`${STRAPI_BASE_MEDIA_URL}${element.file[index]?.formats.medium.url}`}
 				width={element.file[index]?.formats.medium.width}
 				height={element.file[index]?.formats.medium.height}
 				className='rounded-lg object-cover w-full h-full m-0 hover:scale-110 transition-all duration-300 ease-in-out'
