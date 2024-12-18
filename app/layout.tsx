@@ -4,7 +4,6 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 
 import { fetchGlobalMetadata } from '@/API/metadataAPI';
-import { getStrapiBaseUrl } from '@/utils/getStrapiBaseUrl';
 
 import './globals.css';
 
@@ -29,9 +28,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
 	const { data } = await fetchGlobalMetadata(query);
 
-	const STRAPI_BASE_URL = getStrapiBaseUrl();
-	const FAVICON_URL = `${STRAPI_BASE_URL}${data.favicon.url}` || '';
-	const META_OR_IMAGE_URL = `${STRAPI_BASE_URL}${data?.defaultSeo.metaOgImage.url}` || '';
+	const FAVICON_URL = data.favicon.url || '';
+	const META_OR_IMAGE_URL = data?.defaultSeo.metaOgImage.url || '';
 
 	return {
 		icons: FAVICON_URL,
