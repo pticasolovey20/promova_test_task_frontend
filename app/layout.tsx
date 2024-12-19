@@ -1,13 +1,12 @@
 import qs from 'qs';
 import { ReactNode } from 'react';
 import type { Metadata } from 'next';
+import { draftMode } from 'next/headers';
 import { Poppins } from 'next/font/google';
 
 import { fetchGlobalMetadata } from '@/API/metadataAPI';
-
-import './globals.css';
 import DraftBanner from '@/components/DraftBanner';
-import { draftMode } from 'next/headers';
+import './globals.css';
 
 const font = Poppins({
 	weight: ['400'],
