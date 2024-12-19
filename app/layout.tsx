@@ -6,15 +6,21 @@ import { Poppins } from 'next/font/google';
 import { fetchGlobalMetadata } from '@/API/metadataAPI';
 
 import './globals.css';
+import DraftBanner from '@/components/DraftBanner';
+import { draftMode } from 'next/headers';
 
 const font = Poppins({
-	weight: '400',
-	subsets: ['latin'],
+	weight: ['400'],
 	display: 'swap',
+	subsets: ['latin'],
 });
 
 export const generateMetadata = async (): Promise<Metadata> => {
+	const { isEnabled } = draftMode();
+
 	const query = qs.stringify({
+		...(isEnabled && { status: 'draft' }),
+
 		populate: {
 			favicon: {
 				populate: true,
@@ -45,9 +51,12 @@ export const generateMetadata = async (): Promise<Metadata> => {
 };
 
 const RootLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
+	const { isEnabled } = draftMode();
+
 	return (
 		<html lang='en'>
 			<body className={font.className} suppressHydrationWarning>
+				{isEnabled && <DraftBanner isDraftModeEnabled={isEnabled} />}
 				{children}
 			</body>
 		</html>

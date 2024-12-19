@@ -1,12 +1,17 @@
 import qs from 'qs';
 import { FC, Fragment } from 'react';
+import { draftMode } from 'next/headers';
+
 import { fetchPost } from '@/API/postsAPI';
+import { classNames } from '@/utils/classNames';
 
 import PostDetails from '@/components/posts/PostDetails';
 
-const getPost = async (slug: string) => {
+const getPost = async (slug: string, mode: 'draft' | undefined) => {
 	try {
 		const query = qs.stringify({
+			...(mode && { status: mode }),
+
 			filters: {
 				slug,
 			},
@@ -45,12 +50,15 @@ interface IPostDetailsPage {
 }
 
 const PostDetailsPage: FC<IPostDetailsPage> = async ({ params }) => {
-	const postData = await getPost(params.slug);
+	const { isEnabled } = draftMode();
+	const mode = isEnabled ? 'draft' : undefined;
+
+	const postData = await getPost(params.slug, mode);
 
 	return (
 		<Fragment>
-			<section className='max-w-screen-xl w-full mx-auto'>
-				<PostDetails postData={postData} />
+			<section className={classNames('max-w-screen-xl w-full mx-auto', isEnabled ? 'mt-[60px]' : '')}>
+				<PostDetails isDraftModeEnabled={isEnabled} postData={postData} />
 			</section>
 		</Fragment>
 	);

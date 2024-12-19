@@ -1,11 +1,16 @@
 import { FC } from 'react';
+import { classNames } from '@/utils/classNames';
 
-const Loader: FC = () => {
+interface ILoader {
+	className?: string;
+}
+
+const Loader: FC<ILoader> = ({ className }) => {
 	return (
 		<div role='status'>
 			<svg
 				aria-hidden='true'
-				className='w-8 h-8 text-gray-200 fill-gray-500'
+				className={classNames('w-8 h-8 text-gray-200 fill-gray-500', className)}
 				viewBox='0 0 100 101'
 				fill='none'
 				xmlns='http://www.w3.org/2000/svg'

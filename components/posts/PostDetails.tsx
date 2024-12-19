@@ -5,14 +5,16 @@ import { IPostData } from '@/interfaces/postsInterfaces';
 
 import Link from 'next/link';
 import Image from 'next/image';
+import DraftToggle from './DraftToggle';
 import { MdChevronLeft } from 'react-icons/md';
 import ContentRender from '@/components/posts/ContentRender';
 
 interface IPostDetails {
+	isDraftModeEnabled: boolean;
 	postData: IPostData;
 }
 
-const PostDetails: FC<IPostDetails> = ({ postData }) => {
+const PostDetails: FC<IPostDetails> = ({ isDraftModeEnabled, postData }) => {
 	return (
 		<Fragment>
 			<div className='flex flex-col relative shadow-gray-500 shadow-lg bg-gray-300 overflow-hidden'>
@@ -29,25 +31,36 @@ const PostDetails: FC<IPostDetails> = ({ postData }) => {
 					/>
 				</div>
 
-				<div className='w-full flex flex-col p-4'>
-					<Link
-						href='/posts'
-						aria-label='Back to all posts'
-						className={classNames(
-							'flex items-center absolute top-2 left-1 w-fit',
-							'text-sm text-white group px-3 py-2 z-[3]'
+				<div className='w-full flex flex-wrap p-4'>
+					<div className='flex-1 flex flex-col'>
+						{!isDraftModeEnabled && (
+							<DraftToggle
+								isEnabled={isDraftModeEnabled}
+								ariaLabel='Enable draft mode'
+								label='Enable Draft'
+								className='mb-2'
+							/>
 						)}
-					>
-						<MdChevronLeft
-							size={20}
-							className='transition-transform duration-200 ease-in-out group-hover:-translate-x-1'
-						/>
 
-						<span className='text-normal'>Back</span>
-					</Link>
+						<Link
+							href='/posts'
+							aria-label='Back to all posts'
+							className={classNames(
+								'flex items-center absolute top-2 left-1 w-fit',
+								'text-sm text-white group px-3 py-2 z-[3]'
+							)}
+						>
+							<MdChevronLeft
+								size={20}
+								className='transition-transform duration-200 ease-in-out group-hover:-translate-x-1'
+							/>
 
-					<h1 className='font-bold text-gray-800 text-5xl xl:text-6xl'>{postData.title}</h1>
-					<p className='text-lg xl:text-xl'>{postData.description}</p>
+							<span className='text-normal'>Back</span>
+						</Link>
+
+						<h1 className='font-bold text-gray-800 text-5xl xl:text-6xl'>{postData.title}</h1>
+						<p className='text-lg xl:text-xl'>{postData.description}</p>
+					</div>
 				</div>
 			</div>
 
