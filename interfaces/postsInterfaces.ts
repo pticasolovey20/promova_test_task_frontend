@@ -8,6 +8,7 @@ export interface IPostData {
 	slug: string;
 	date: string;
 	image: IPostImage;
+	updatedAt: string;
 	bodyContent: IPostBodyContent[];
 }
 
